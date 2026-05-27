@@ -95,9 +95,9 @@ def swipe_scipy(audio, sr, *, fmin, fmax, frame_length, hop_length,
 
 ### Cuidados
 
-- Zerar bins de FFT fora de `[fmin, fmax * n_harmonics_max]` para reduzir custo.
-- Saturar `voicing_threshold` em valor moderado (default 0.2) — calibrável.
-- Tratamento de áudio silencioso (max(abs) < eps): `voiced = False`, `f0 = NaN`.
+- Considerar harmônicos do kernel até Nyquist (`sr/2`). Bins acima de Nyquist têm contribuição zero.
+- `voicing_threshold` default 0.2 (calibrável via parâmetro nomeado).
+- Tratamento de áudio silencioso (`max(abs(frame)) < 1e-8`): `voiced = False`, `f0 = NaN` (mesma convenção de `autocorr_librosa`).
 
 ## Testes
 
